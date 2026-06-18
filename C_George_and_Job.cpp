@@ -1,30 +1,41 @@
-
 #include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int n,m,k;
-    cin>>n>>m>>k;   
-    vector<int>arr(n);
-    for(int i=0;i<n;i++){
-        cin>>arr[i];
-    }
-    //holding prefix sum to calculate sum of any window in O(1) time
-    vector<int>prefix(n+1,0);
-    for(int i=1;i<=n;i++){
-        prefix[i]=prefix[i-1]+arr[i-1];
-    }   
-    //calculating sum of all windows of size m and storing them in a vector
-    vector<int>window_sum;
-    for(int i=0;i<=n-m;i++){
-        window_sum.push_back(prefix[i+m]-prefix[i]);
-    }   
-    //sorting the window sums in descending order and summing up the top k sums
-    sort(window_sum.rbegin(),window_sum.rend());
-    long long ans=0;
 
-    for(int i=0;i<k;i++){
-        ans+=window_sum[i];
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, k;
+    cin >> n >> m >> k;
+
+    vector<long long> a(n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
     }
-    cout<<ans<<endl;
+
+    vector<long long> pref(n + 1, 0);
+    for (int i = 1; i <= n; i++) {
+        pref[i] = pref[i - 1] + a[i];
+    }
+
+    vector<long long> seg(n + 2, 0);
+
+    for (int i = 1; i + m - 1 <= n; i++) {
+        seg[i] = pref[i + m - 1] - pref[i - 1];
+    }
+
+    vector<vector<long long>> dp(n + m + 5,
+                                 vector<long long>(k + 1, 0));
+
+    for (int i = n - m + 1; i >= 1; i--) {
+        for (int j = 1; j <= k; j++) {
+            dp[i][j] = max(
+                dp[i + 1][j],
+                seg[i] + dp[i + m][j - 1]
+            );
+        }
+    }
+
+    cout << dp[1][k] << '\n';
     return 0;
 }
