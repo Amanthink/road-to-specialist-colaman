@@ -1,0 +1,1 @@
+{"name":"Local: two_intervals","url":"d:\\road to specialist@colaman\\two_intervals.cpp","tests":[{"id":1781594396768,"input":"1\n1 15 5 27 ","output":"5 15 "}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\road to specialist@colaman\\two_intervals.cpp","group":"local","local":true}
