@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 19.06.2026 17:57:58
+ *    created: 25.06.2026 10:50:39
  **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -51,18 +51,20 @@ const ld pi = acos(-1.0); // value of pi
 
 void solve()
 {
-    int a, b, n;
-    cin >> a >> b >> n; // 5 3 3
-    int diff = a - b;   // 2
-    long long total = b;
-    vi p(n);
-    for (i, 0, n)
-    {
-        cin >> p[i];
+    int64_t n, x, k;
+    cin >> n >> k >> x;
+    // summing first and last k numbers
+    long long minsum = k * (k + 1) / 2;
+    long long maxsum = k * (2 * n - k + 1) / 2;
 
-        total += min(p[i], a - 1);
+    if (x >= minsum && x <= maxsum)
+    {
+        cout << "YES" << endl;
     }
-    cout << total << endl;
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 
 int main()
