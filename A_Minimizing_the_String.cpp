@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 29.06.2026 11:37:05
+ *    created: 30.06.2026 14:05:56
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -49,33 +49,30 @@ const ld pi= acos(-1.0);   // value of pi
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
 
-
-
-long long solve() {
-    long long n;
+void solve() {
+    int n;
     cin >> n;
 
-    if (n % 2 == 0) { //if n is even, we can subtract 2 until we reach 0
-        cout << n / 2 << '\n';
-        return 0;
-    }
+    string s;
+    cin >> s;
 
-    for (long long i = 3; i * i <= n; i += 2) { // check for odd divisors starting from 3
-        if (n % i == 0) { // if i is a divisor of n
-            cout << 1 + (n - i) / 2 << '\n';// subtract i once, then subtract 2 until we reach 0
-            return 0;
+    for (int i = 0; i < n - 1; i++) {
+        if (s[i] > s[i + 1]) {
+            s.erase(i, 1);
+            cout << s << '\n';
+            return;
         }
     }
 
-    cout << 1 << '\n';
-    return 0;
+    s.pop_back();
+    cout << s << '\n';
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    solve();
+ solve();
 
     return 0;
 }
