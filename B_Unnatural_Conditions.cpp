@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 02.07.2026 22:37:36
+ *    created: 04.07.2026 11:02:16
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -48,36 +48,26 @@ const ld pi= acos(-1.0);   // value of pi
 
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
-
-void solve() {
-    int n;
-    cin >> n;
-
-    string s;
-    cin >> s;
-    int cnt=1;
-    int ans=1;
-    for(i,1,n){
-        if(s[i]==s[i-1]){
-            cnt++;}
-        else{
-            ans=max(ans,cnt);
-            cnt=1;
-        }
+int sum(int n){
+    //function to return sum of digits 
+    int sum=0;
+    while(n>0){
+        sum+=n%10;
+        n/=10;
     }
-    ans=max(ans,cnt);
-    cout << ans+1 << endl;
+    return sum;
+}
+void solve(){
+    int n,m;cin>>n>>m;
+   for(i,0,1000) putchar('5'); puts("");
+    for(i,0,1000-1) putchar('4'); puts("5");
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+  solve();
 
     return 0;
 }

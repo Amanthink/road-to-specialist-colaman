@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 02.07.2026 22:37:36
+ *    created: 08.07.2026 09:25:00
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -48,36 +48,39 @@ const ld pi= acos(-1.0);   // value of pi
 
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
-
-void solve() {
+//function to calculate nCr
+int combi(int n,int r){// 4 1
+    if(r>n){return 0;}//false
+    if(r==0||r==n){return 1;}//false;
+    r=min(r,n-r);//4c1  
+    int res=1;
+    for(i,0,r){//i=0,1
+        res*=(n-i);
+        res/=(i+1);
+    }
+    return res;
+}
+void solve(){
     int n;
     cin >> n;
+    string a, b;
+    cin >> a >> b;
 
-    string s;
-    cin >> s;
-    int cnt=1;
-    int ans=1;
-    for(i,1,n){
-        if(s[i]==s[i-1]){
-            cnt++;}
-        else{
-            ans=max(ans,cnt);
-            cnt=1;
-        }
+    long long  zero = 0, oneone = 0, onezero = 0, zerozero = 0;
+    for (i,0,n) {
+        if (a[i] == '0') zero++;
+        if (a[i] == '1' && b[i] == '1') oneone++;
+        if (a[i] == '1' && b[i] == '0') onezero++;
+        if (a[i] == '0' && b[i] == '0') zerozero++;
     }
-    ans=max(ans,cnt);
-    cout << ans+1 << endl;
+
+    cout << (zero * onezero) + (oneone * zerozero) << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+    solve();
 
     return 0;
 }

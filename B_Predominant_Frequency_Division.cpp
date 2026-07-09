@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 02.07.2026 22:37:36
+ *    created: 06.07.2026 20:8:33
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -36,10 +36,6 @@ typedef unordered_map<int,int> umii;  // unordered_map<int,int> -> umii
 #define sz(x) (int)(x).size()           // (int)v.size() -> sz(v)
 #define rsz(x,n) (x).resize(n)          // v.resize(n) -> rsz(v,n)
 
-// ================= LOOP SHORTCUTS =================
-#define for(i,a,b) for (int i = (a); i < (b); i++)   // for(i=a;i<b;i++) -> FOR(i,a,b)
-#define rep(i,n) for(i,0,n)                          // for(i=0;i<n;i++) -> REP(i,n)
-#define rof(i,n) for (int i = (n)-1; i >= 0; i--)    // for(i=n-1;i>=0;i--) -> ROF(i,n)
 
 // ================= USEFUL CONSTANTS =================
 const ll inf = 1e18;        // a "big enough" number, used as infinity
@@ -48,25 +44,43 @@ const ld pi= acos(-1.0);   // value of pi
 
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
+#include <bits/stdc++.h>
+using namespace std;
 
 void solve() {
     int n;
     cin >> n;
 
-    string s;
-    cin >> s;
-    int cnt=1;
-    int ans=1;
-    for(i,1,n){
-        if(s[i]==s[i-1]){
-            cnt++;}
-        else{
-            ans=max(ans,cnt);
-            cnt=1;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    vector<int> pref1(n + 1, 0), pref2(n + 1, 0), pref3(n + 1, 0);// prefix sums for counts of 1s, 2s, and 3s
+    for (int i = 0; i < n; ++i) {// calculate prefix sums
+        pref1[i + 1] = pref1[i] + (a[i] == 1);
+        pref2[i + 1] = pref2[i] + (a[i] == 2);
+        pref3[i + 1] = pref3[i] + (a[i] == 3);
+    }
+
+    vector<int> balance(n + 1, 0);// balance[i] = pref1[i] + pref2[i] - pref3[i]
+    for (int i = 0; i <= n; ++i) {
+        balance[i] = pref1[i] + pref2[i] - pref3[i];
+    }
+
+    vector<int> suffixMax(n + 2, INT_MIN);
+    for (int i = n - 1; i >= 0; --i) {
+        suffixMax[i] = max(suffixMax[i + 1], balance[i]);
+    }
+
+    for (int leftEnd = 1; leftEnd <= n - 2; ++leftEnd) {
+        if (pref1[leftEnd] >= pref2[leftEnd] + pref3[leftEnd] && suffixMax[leftEnd + 1] >= balance[leftEnd]) {
+            cout << "YES\n";
+            return;
         }
     }
-    ans=max(ans,cnt);
-    cout << ans+1 << endl;
+
+    cout << "NO\n";
 }
 
 int main() {
@@ -78,6 +92,6 @@ int main() {
     while (t--) {
         solve();
     }
-
     return 0;
 }
+

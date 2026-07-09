@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 02.07.2026 22:37:36
+ *    created: 04.07.2026 11:40:30
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -37,9 +37,7 @@ typedef unordered_map<int,int> umii;  // unordered_map<int,int> -> umii
 #define rsz(x,n) (x).resize(n)          // v.resize(n) -> rsz(v,n)
 
 // ================= LOOP SHORTCUTS =================
-#define for(i,a,b) for (int i = (a); i < (b); i++)   // for(i=a;i<b;i++) -> FOR(i,a,b)
-#define rep(i,n) for(i,0,n)                          // for(i=0;i<n;i++) -> REP(i,n)
-#define rof(i,n) for (int i = (n)-1; i >= 0; i--)    // for(i=n-1;i>=0;i--) -> ROF(i,n)
+
 
 // ================= USEFUL CONSTANTS =================
 const ll inf = 1e18;        // a "big enough" number, used as infinity
@@ -49,35 +47,49 @@ const ld pi= acos(-1.0);   // value of pi
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
 
-void solve() {
-    int n;
-    cin >> n;
-
+void solve(){
     string s;
-    cin >> s;
-    int cnt=1;
-    int ans=1;
-    for(i,1,n){
-        if(s[i]==s[i-1]){
-            cnt++;}
+    cin>>s;//bbacc
+    //count of letters of a , b ,c 
+    //we have to look for orders too a b c appears in sequence 
+    int count[3]={0};//0->a,1->b,2->c
+    int idx=0;
+    bool t=true;
+   for(int i=0;i<s.length()&&t==true;i++){
+        if(s[i]=='a') {count[0]++;}
+       else{
+           t=false;
+           idx=i;
+       }
+    }
+    t=true;
+    for(int i=idx;i<s.length()&&t==true;i++){
+        if(s[i]=='b') {count[1]++; }
         else{
-            ans=max(ans,cnt);
-            cnt=1;
+            t=false;
+            idx=i;
         }
     }
-    ans=max(ans,cnt);
-    cout << ans+1 << endl;
+   
+    bool validTail = true;
+    for (int i = idx; i < (int)s.length(); i++) {
+        if (s[i] == 'c') count[2]++;
+        else { validTail = false; break; }
+    }
+
+    bool flag1 = (count[0] > 0 && count[1] > 0 && count[2] > 0);
+    bool flag2 = (count[2] == count[0] || count[2] == count[1]);
+
+   
+    if(validTail && flag1 && flag2) cout<<"YES"<<endl;//true
+    else cout<<"NO"<<endl;//false
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+solve();
 
     return 0;
 }

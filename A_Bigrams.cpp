@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 02.07.2026 22:37:36
+ *    created: 06.07.2026 20:13:58
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -49,24 +49,21 @@ const ld pi= acos(-1.0);   // value of pi
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
 
-void solve() {
-    int n;
-    cin >> n;
-
-    string s;
-    cin >> s;
-    int cnt=1;
-    int ans=1;
-    for(i,1,n){
-        if(s[i]==s[i-1]){
-            cnt++;}
-        else{
-            ans=max(ans,cnt);
-            cnt=1;
-        }
+void solve(){
+    int k;
+    cin >> k;
+    vector<ll> c(k);
+   for(i, 0, k) cin >> c[i];
+    int flag = 0;
+    bool ok = false;
+    for(i, 0, k){
+        if (c[i] >= 3) ok = true;
+        if (c[i] >= 2) flag++;
     }
-    ans=max(ans,cnt);
-    cout << ans+1 << endl;
+
+    if (flag >= 2) ok = true;
+
+    cout << (ok ? "YES" : "NO") << endl;
 }
 
 int main() {

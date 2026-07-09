@@ -1,7 +1,7 @@
 /**
  *    author:  colaman
  *    github:  Amanthink
- *    created: 02.07.2026 22:37:36
+ *    created: 06.07.2026 20:24:35
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -49,24 +49,48 @@ const ld pi= acos(-1.0);   // value of pi
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
 
-void solve() {
+void solve(){
     int n;
-    cin >> n;
+    ll k;
+    cin >> n >> k;
+    vi a(n);
+    rep(i, n) cin >> a[i];
 
-    string s;
-    cin >> s;
-    int cnt=1;
-    int ans=1;
-    for(i,1,n){
-        if(s[i]==s[i-1]){
-            cnt++;}
-        else{
-            ans=max(ans,cnt);
-            cnt=1;
+    vi runs;
+    int len = 1;
+    rep(i, n - 1) {
+        if (a[i] == a[i + 1]) len++;
+        else {
+            runs.pb(len);
+            len = 1;
         }
     }
-    ans=max(ans,cnt);
-    cout << ans+1 << endl;
+    runs.pb(len);
+
+    sort(all(runs));
+
+    vpii groups;
+    rep(i, runs.size()) {
+        if (groups.empty() || groups.back().ff != runs[i]) groups.pb(mp(runs[i], 1));
+        else groups.back().ss++;
+    }
+
+    ll suffixCnt = 0;
+    ll suffixSum = 0;
+    ll ans = 0;
+
+    rep(t, groups.size()) {
+        int i = sz(groups) - 1 - t;
+        ll v = groups[i].ff;
+        ll cnt = groups[i].ss;
+        suffixCnt += cnt;
+        suffixSum += v * cnt;
+
+        ll base = suffixSum - (v - 1) * suffixCnt;
+        if (k >= base && (k - base) % suffixCnt == 0) ans++;
+    }
+
+    cout << ans << endl;
 }
 
 int main() {
