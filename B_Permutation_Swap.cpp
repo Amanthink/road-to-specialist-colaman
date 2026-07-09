@@ -48,16 +48,22 @@ const ld pi= acos(-1.0);   // value of pi
 
 // ================= FAST IO =================
 #define endl "\n"           // endl flushes (slow); "\n" doesn't (fast)
-
+int gcd(int a,int b){return b==0?a:gcd(b,a%b);}
 
 void solve(){
-    int n;
-    cin >> n;
-    vi a(n);
-    for(i,0,n)cin>>a[i];
-    int k=__gcd(abs(a[0]-1));;
-    for(i,1,n){k=max(k,___gcd(abs(a[i]-a[i-1])));}
-    cout << k << endl;
+  int n;
+		cin >> n;
+		vector<int> a(n);
+		for (i,0,n)
+			cin >> a[i];
+		
+		int k = abs(a[0] - 1);
+		for (i,1,n) 
+		{
+			k = gcd(k, abs(a[i] - (i + 1)));
+		}
+		
+		cout << k << endl;
 }
 
 int main() {
