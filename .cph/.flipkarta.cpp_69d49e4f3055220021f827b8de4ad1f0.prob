@@ -1,0 +1,1 @@
+{"name":"Local: flipkarta","url":"d:\\road to specialist@colaman\\flipkarta.cpp","tests":[{"id":1784369887489,"input":"6\n70\nL 50\nLR 65\nLRL 60 \nLRR 68\nLRRL 69","output":"65"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\road to specialist@colaman\\flipkarta.cpp","group":"local","local":true}
